@@ -21,6 +21,9 @@ size_t binary_tree_depth(const binary_tree_t *tree)
 binary_tree_t *find_ancestor(const binary_tree_t *deeper,
 const binary_tree_t *comp)
 {
+	if (deeper == NULL || comp == NULL)
+		return (NULL);
+
 	if (deeper->parent == comp)
 	{
 		return (deeper->parent);
