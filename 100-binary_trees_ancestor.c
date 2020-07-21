@@ -14,31 +14,20 @@ size_t binary_tree_depth(const binary_tree_t *tree)
 }
 /**
  * find_ancestor - function that find ancestor
- * @deeper: deeper node
- * @comp: comparation node
+ * @first: deeper node
+ * @second: comparation node
  * Return: the ancestor
  */
-binary_tree_t *find_ancestor(const binary_tree_t *deeper,
-const binary_tree_t *comp)
+binary_tree_t *find_ancestor(const binary_tree_t *first,
+const binary_tree_t *second)
 {
-	if (deeper == NULL || comp == NULL)
+	if (first == NULL || second == NULL)
 		return (NULL);
 
-	if (deeper->parent == comp)
-	{
-		return (deeper->parent);
-	}
-	else if (deeper->parent->left != deeper)
-	{
-		if (deeper->parent->left == comp)
-			return (deeper->parent);
-	}
-	else if (deeper->parent->right != deeper)
-	{
-		if (deeper->parent->right == comp)
-			return (deeper->parent);
-	}
-	return (find_ancestor(deeper->parent, comp));
+	if (first == second)
+		return ((binary_tree_t *)first);
+	else
+		return (find_ancestor(first->parent, second->parent));
 }
 
 /**
@@ -59,7 +48,17 @@ const binary_tree_t *second)
 	depth_second = binary_tree_depth(second);
 
 	if (depth_first >= depth_second)
-		return	(find_ancestor(first,  second));
+		while (depth_first > depth_second)
+		{
+			first = first->parent;
+			depth_first--;
+		}
 	else
-		return	(find_ancestor(second,  first));
+		while (depth_second > depth_first)
+		{
+			second = second->parent;
+			depth_second--;
+		}
+
+	return (find_ancestor(first, second));
 }
