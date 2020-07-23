@@ -72,7 +72,7 @@ int is_bst(const binary_tree_t *tree)
  */
 int binary_tree_is_bst(const binary_tree_t *tree)
 {
-	if (tree == NULL)
+	if (!tree)
 		return (0);
 
 	return (is_bst(tree));
